@@ -1,23 +1,43 @@
-// comentario de una linea
-/* comentario de más
-de una línea*/
-const prompt = require("prompt-sync")(); //esto para pdoer usar prompt
-// ejecutar por terminal: npm install prompt-sync
+const prompt = require("prompt-sync")();
+const fs = require('fs');
+let contador =0;
+try {
+    contador = parseInt(fs.readFileSync('contador.txt','utf8'));
+} catch (error) {
+    contador = 0;
+}
+contador++;
+let continuar = true;
+while (continuar) {
 
-var nombre; 
-var n1,n2, suma;
-
-seguir = prompt("Calculadora");
-if (seguir == "si"){
-    opcion = parseInt(prompt("1.-Suma, 2.-Resta, 3.-Multiplicacion, 4.-Division, ¿que desea hacer?:"));
-    if (opcion == 1){
-    nombre = prompt("Calculadora Ingrese nombre: ");
-    n1 = parseInt(prompt("Ingrese número 1: "));
-    n2 = parseFloat(prompt("Ingrese número 2: "));
+    let primerValor= parseInt(prompt("Ingrese el primer valor: "));
+    let segundoValor= parseInt(prompt("Ingrese segundo valor: "));
+    let opcion= parseInt(prompt("(1)Sumar (2)Restar (3)Multiplicar (4)Dividir "));
+    switch (opcion){
+        case 1:
+        console.log("El resultado es", primerValor+segundoValor);
+        break;
     
-    suma = n1+n2;
-    console.log(suma);
-    suma= "hola mundo";
-    console.log(suma);   
-}}
-   console.log("txiao")
+        case 2:
+        console.log("El resultado es", primerValor-segundoValor);
+        break;
+
+        case 3:
+        console.log("El resultado es", primerValor*segundoValor);
+        break;
+        
+        default:
+            if (segundoValor==0){
+                console.log("No se puede dividir por cero.")
+            }
+            else {
+                console.log("El resultado es", primerValor/segundoValor);
+            };    
+        }
+        console.log('el programa se ha ejecutado ${contador} veces');
+const respuesta = prompt("Desea continuar? (s/n)").toLowerCase();
+if (respuesta !=="s") {
+    continuar = false;
+     } 
+}
+console.log("El programa ha terminado");
